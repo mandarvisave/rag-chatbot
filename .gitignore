@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.python-packages/
+.env
+faiss_store.pkl
+uvicorn*.log
+
+# Node/Vite
+node_modules/
+dist/
+.vite/
+*.log
+
+# Local caches
+.cache/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/

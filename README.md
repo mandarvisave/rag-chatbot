@@ -150,7 +150,7 @@ backend/faiss_store.pkl
 ### 1. Clone The Repository
 
 ```bash
-git clone https://github.com/your-username/rag-chatbot.git
+git clone https://github.com/mandarvisave/rag-chatbot.git
 cd rag-chatbot
 ```
 

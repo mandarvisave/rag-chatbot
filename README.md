@@ -1,4 +1,5 @@
-# AI Document Search
+# AI Document Search 
+Live Now - https://rag-chatbot-indol.vercel.app/
 
 AI Document Search is a full-stack Retrieval-Augmented Generation (RAG) chatbot that lets users upload PDF documents and ask natural-language questions about their contents. It extracts document text, chunks it, embeds it, stores it in a vector database, retrieves the most relevant passages, and uses an LLM to generate grounded answers with source snippets.
 

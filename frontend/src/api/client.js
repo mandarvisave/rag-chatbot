@@ -14,16 +14,19 @@ function normalizeApiBaseUrl(value) {
   }
 
   const url = new URL(rawValue);
-  url.pathname = url.pathname.replace(/\/$/, '');
+  url.pathname = url.pathname.replace(/\/+/g, '/').replace(/\/$/, '');
 
   if (!url.pathname.endsWith('/api')) {
     url.pathname = `${url.pathname}/api`;
   }
 
+  url.pathname = url.pathname.replace(/\/+/g, '/');
   return url.toString().replace(/\/$/, '');
 }
 
 export const API_BASE_URL = normalizeApiBaseUrl(import.meta.env.VITE_API_URL);
+
+console.info('AI Document Search API base:', API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,

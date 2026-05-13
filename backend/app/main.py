@@ -1,4 +1,6 @@
-from fastapi import FastAPI
+import re
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
@@ -6,6 +8,12 @@ from app.routers import chat, upload
 
 app = FastAPI(title="AI Document Search API", version="1.0.0")
 settings = get_settings()
+
+
+@app.middleware("http")
+async def normalize_duplicate_slashes(request: Request, call_next):
+    request.scope["path"] = re.sub(r"/{2,}", "/", request.scope["path"])
+    return await call_next(request)
 
 app.add_middleware(
     CORSMiddleware,

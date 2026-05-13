@@ -22,6 +22,15 @@ async def chat(request: ChatRequest) -> ChatResponse:
     except RuntimeError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:
+        if "AuthenticationError" in exc.__class__.__name__ or "User not found" in str(exc):
+            raise HTTPException(
+                status_code=401,
+                detail=(
+                    "OpenRouter rejected OPENROUTER_API_KEY while embedding the question. "
+                    "Create/copy a valid OpenRouter API key, update backend/.env, "
+                    "and restart the backend."
+                ),
+            ) from exc
         raise HTTPException(
             status_code=502,
             detail="Question embedding or vector search failed. Check backend logs.",
@@ -36,6 +45,15 @@ async def chat(request: ChatRequest) -> ChatResponse:
     try:
         answer = llm_service.answer_question(request.question, matches)
     except Exception as exc:
+        if "AuthenticationError" in exc.__class__.__name__ or "User not found" in str(exc):
+            raise HTTPException(
+                status_code=401,
+                detail=(
+                    "OpenRouter rejected OPENROUTER_API_KEY while generating the answer. "
+                    "Create/copy a valid OpenRouter API key, update backend/.env, "
+                    "and restart the backend."
+                ),
+            ) from exc
         raise HTTPException(
             status_code=502,
             detail="LLM answer generation failed. Check OPENROUTER_API_KEY and model settings.",

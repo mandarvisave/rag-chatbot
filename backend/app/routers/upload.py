@@ -26,6 +26,15 @@ async def upload_pdf(file: UploadFile = File(...)) -> UploadResponse:
     except RuntimeError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:
+        if "AuthenticationError" in exc.__class__.__name__ or "User not found" in str(exc):
+            raise HTTPException(
+                status_code=401,
+                detail=(
+                    "OpenRouter rejected OPENROUTER_API_KEY while creating embeddings. "
+                    "Create/copy a valid OpenRouter API key, update backend/.env, "
+                    "and restart the backend."
+                ),
+            ) from exc
         raise HTTPException(
             status_code=502,
             detail=(

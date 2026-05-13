@@ -21,6 +21,15 @@ class Settings(BaseSettings):
     chunk_overlap: int = Field(default=100, alias="CHUNK_OVERLAP")
     top_k: int = Field(default=5, alias="TOP_K")
     faiss_store_path: Path = Field(default=Path("faiss_store.pkl"), alias="FAISS_STORE_PATH")
+    cors_origins: str = Field(default="*", alias="CORS_ORIGINS")
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        return [
+            origin.strip()
+            for origin in self.cors_origins.split(",")
+            if origin.strip()
+        ] or ["*"]
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

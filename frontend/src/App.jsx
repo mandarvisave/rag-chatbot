@@ -24,7 +24,7 @@ export default function App() {
               </div>
               <div className="flex gap-3">
                 <Database className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" aria-hidden="true" />
-                <p>Embeddings are stored in FAISS and persisted between backend restarts.</p>
+                <p>Embeddings are stored in Pinecone and persisted between backend restarts.</p>
               </div>
               <div className="flex gap-3">
                 <FileSearch className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" aria-hidden="true" />
